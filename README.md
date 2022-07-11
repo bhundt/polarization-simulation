@@ -1,6 +1,5 @@
-# Welcome to Streamlit!
+# Political Polarization Simulation using Streamlit
+Paper which inspired this: https://www.pnas.org/content/118/50/e2102139118#ref-22
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire. :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+## Usage
+Start simulation by executing ```streamlit run streamlit_app.py```

@@ -1,38 +1,80 @@
-from collections import namedtuple
-import altair as alt
-import math
-import pandas as pd
 import streamlit as st
+import agentpy as ap
+import multiprocessing as mp
+import matplotlib.pyplot as plt
+import numpy as np
 
-"""
-# Welcome to Streamlit!
-
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:
-
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
-
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+from polarization_model import PolarizationModel
 
 
-with st.echo(code_location='below'):
-    total_points = st.slider("Number of points in spiral", 1, 5000, 2000)
-    num_turns = st.slider("Number of turns in spiral", 1, 100, 9)
+# def main():
+#     params = {
+#         'agents': 100,
+#         'steps': 10000,
+#         #'seed': 42,
+#         'E': 0.1,       # exposure porbability
+#         'T': 0.25,      # tolerance window
+#         'R': 0.25,      # movement coefficient
+#         'P': -0.99,       # self interest factor
+#         'A': -0.99,       # affective polarization
+#     }
 
-    Point = namedtuple('Point', 'x y')
-    data = []
+#     model = PolarizationModel(params)
+#     result = model.run()
+#     #print(result.variables.PolarizationModel)
 
-    points_per_turn = total_points / num_turns
+#     # plot polarization over time
+#     df = result.variables.PolarizationModel
+#     plt.plot(df.index, df['Var'], '.')
+#     plt.show()
+#     plt.close()
 
-    for curr_point_num in range(total_points):
-        curr_turn, i = divmod(curr_point_num, points_per_turn)
-        angle = (curr_turn + 1) * 2 * math.pi * i / points_per_turn
-        radius = curr_point_num / total_points
-        x = radius * math.cos(angle)
-        y = radius * math.sin(angle)
-        data.append(Point(x, y))
+#     # plot polarization histogram
+#     hist_values, bins = df.iloc[-1]['Hist'], df.iloc[-1]['Bins']
+#     width = 0.7 * (bins[1] - bins[0])
+#     center = (bins[:-1] + bins[1:]) / 2
 
-    st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
-        .mark_circle(color='#0068c9', opacity=0.5)
-        .encode(x='x:Q', y='y:Q'))
+#     plt.bar(center, hist_values, align='center', width=width)
+#     plt.show()
+#     plt.close()
+
+# if __name__ == "__main__":
+#     main()
+
+# streamlit application
+def run_simulation(agents: int, steps: int, exposure_prob: float, tolerance_window: float, movement_coefficient: float):
+    params = {
+        'agents': agents,
+        'steps': steps,
+        #'seed': 42,
+        'E': exposure_prob,       # exposure prob
+        'T': tolerance_window,      # tolerance window
+        'R': movement_coefficient,      # movement coefficient
+        'P': -0.99,       # self interest factor
+        'A': -0.99,       # affective polarization
+    }
+
+    model = PolarizationModel(params)
+    result = model.run()
+
+    return result.variables.PolarizationModel
+
+st.title('Societal Polarization Simulation')
+
+st.subheader('Simulation Settings')
+agents = st.slider('Number of Simulated Agents', 1, 200, 100)
+steps = st.select_slider('Number of Simulation Steps', range(0, 20500, 500), 2000)
+
+exp = st.slider('Exposure Probability', 0.0, 1.0, 0.1)
+tol = st.slider('Tolerance Window', 0.0, 1.0, 0.25)
+react = st.slider('Reaction Coefficient', 0.0, 1.0, 0.25)
+
+with st.spinner('Simulation running...'):
+    df = run_simulation(agents, steps, exp, tol, react)
+st.success('Simulation done!')
+
+st.subheader('Polarization over Time')
+st.line_chart(df.rename(columns={'Var': 'Total Polarization'})['Total Polarization'])
+
+st.subheader('Polarization Distribution')
+st.bar_chart(df.iloc[-1]['Hist'])
