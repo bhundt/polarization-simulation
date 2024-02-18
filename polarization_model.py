@@ -75,7 +75,10 @@ class PolarizationModel(ap.Model):
         self.record("Std", np.std(np.array(self.agents.polarization)))
         self.record("Var", np.var(np.array(self.agents.polarization)))
 
-        hist_values, bins = np.histogram(np.array([pol for pol in self.agents.polarization]), bins=10)
+        hist_values, bins = np.histogram(
+            np.array([pol for pol in self.agents.polarization]),
+            bins=[0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+        )
         self.record("Hist", hist_values)
         self.record("Bins", bins)
 

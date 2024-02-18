@@ -3,7 +3,7 @@ In the paper ["Preventing extreme polarization of political attitudes"](https://
 
 This repository contains a Streamlit app that simulates the model presented in the paper. The app allows you to change the parameters of the model and see how the political polarization evolves over time. 
 
-[Try the app on Streamlit](https://bhundt-polarization-simulation.streamlit.app).
+[You can try the model on Streamlit](https://bhundt-polarization-simulation.streamlit.app).
 
 See this blogpost for more details: [Political Polarization Simulation using Streamlit](). 
 

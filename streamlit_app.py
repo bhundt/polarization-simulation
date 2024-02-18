@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 from polarization_model import PolarizationModel
 
@@ -53,7 +54,27 @@ with st.spinner("Simulation running..."):
 st.success("Simulation done!")
 
 st.subheader("Polarization vs. Time")
+st.markdown(
+    "The plot below shows the total polarization of the society over time. It is calculated using the variance of the polarization of all agents. This means maximum polarization is 0.25."
+)
 st.line_chart(df.rename(columns={"Var": "Total Polarization"})["Total Polarization"])
 
 st.subheader("Polarization Distribution")
-st.bar_chart(df.iloc[-1]["Hist"])
+aux_df = pd.DataFrame(
+    {
+        "Count": df.iloc[-1]["Hist"],
+        "Pol-Range": [
+            "0 - 0.1",
+            "0.1 - 0.2",
+            "0.2 - 0.3",
+            "0.3 - 0.4",
+            "0.4 - 0.5",
+            "0.5 - 0.6",
+            "0.6 - 0.7",
+            "0.7 - 0.8",
+            "0.8 - 0.9",
+            "0.9 - 1.0",
+        ],
+    }
+)
+st.bar_chart(data=aux_df, x="Pol-Range", y="Count")
