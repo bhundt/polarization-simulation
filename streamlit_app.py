@@ -42,12 +42,12 @@ st.markdown(
 )
 
 st.subheader("Simulation Settings")
-agents = st.slider("Number of Simulated Agents", 1, 100, 30)
-steps = st.select_slider("Number of Simulation Steps", range(0, 20500, 500), 5000)
+agents = st.slider("Number of Agents (number of simulated people)", 1, 100, 30)
+steps = st.select_slider("Number of Simulation Steps (essentially the time the simulation runs)", range(0, 20500, 500), 5000)
 
-exp = st.slider("Exposure Probability (how likely is an encounter with a differnt opinion)", 0.0, 1.0, 0.1)
+exp = st.slider("Exposure Probability (how likely is an encounter with another opinion)", 0.0, 1.0, 0.1)
 tol = st.slider("Tolerance Window (tolerance to other opinios)", 0.0, 1.0, 0.25)
-react = st.slider("Reaction Coefficient (strength of reaction to diverging opinions)", 0.0, 1.0, 0.25)
+react = st.slider("Reaction Coefficient (strength of reaction to other opinions)", 0.0, 1.0, 0.25)
 
 with st.spinner("Simulation running..."):
     df = run_simulation(agents, steps, exp, tol, react)
