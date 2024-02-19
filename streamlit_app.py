@@ -60,6 +60,9 @@ st.markdown(
 st.line_chart(df.rename(columns={"Var": "Total Polarization"})["Total Polarization"])
 
 st.subheader("Polarization Distribution")
+st.markdown(
+    "The plot below shows the distribution of polarization of the society. Polarization is mesured on a scale of 0 to 1 where 0 means complete alignment on one side of the issue while 1 means the complete alignment on the other side of the issues. More people on the edges means stronger overall disagreement."
+)
 aux_df = pd.DataFrame(
     {
         "Count": df.iloc[-1]["Hist"],
