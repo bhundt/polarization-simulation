@@ -38,7 +38,7 @@ def run_simulation(
 
 st.title("Societal Polarization Simulation")
 st.markdown(
-    'This app simulates the evolution of societal polarization over time as discussed in \nthe paper ["Preventing extreme polarization of political attitudes"](https://www.pnas.org/content/118/50/e2102139118) by Axelrod et. al. You can find the code on [my github](https://github.com/bhundt/polarization-simulation) and see [my blog]() for more information.'
+    'This app simulates the evolution of societal polarization over time as discussed in \nthe paper ["Preventing extreme polarization of political attitudes"](https://www.pnas.org/content/118/50/e2102139118) by Axelrod et. al. You can find the code on [my github](https://github.com/bhundt/polarization-simulation) and see [my blog](https://bhundt.de/2024/02/21/polarizaton-simulation.html) for more information.'
 )
 
 st.subheader("Simulation Settings")
