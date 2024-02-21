@@ -5,7 +5,7 @@ This repository contains a Streamlit app that simulates the model presented in t
 
 [You can try the model on Streamlit](https://bhundt-polarization-simulation.streamlit.app).
 
-See this blogpost for more details: [Political Polarization Simulation using Streamlit](). 
+See this blogpost for more details: [Political Polarization Simulation using Streamlit](https://bhundt.de/2024/02/21/polarizaton-simulation.html). 
 
 ## Local setup & run
 The code was tested with Python 3.9.5 and 3.11.7. 
